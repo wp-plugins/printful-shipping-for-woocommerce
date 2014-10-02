@@ -1,14 +1,14 @@
 <?php
 /**
  Plugin Name: Printful Shipping Rates for WooCommerce
- Plugin URI: https://wordpress.org/plugins/printful-shipping/
+ Plugin URI: https://wordpress.org/plugins/printful-shipping-for-woocommerce/
  Description: Printful shipping rates
  Version: 1.0
  Author: Idea Bits LLC
  License: GPL2 http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-add_action('woocommerce_shipping_init', 'printfulaaa_shipping_init');
+add_action('woocommerce_shipping_init', 'printful_shipping_init');
 
 add_filter('woocommerce_shipping_methods', 'printful_shipping_add');
 

@@ -14,7 +14,7 @@ class PrintfulClient {
 	private $lastResponseRaw;
 	private $lastResponse;
 
-	const API_URL = 'http://apitest.theprintful.com/';
+	const API_URL = 'https://api.theprintful.com/';
 	const USER_AGENT = 'Printful API PHP Library 1.0';
 
 	/**
