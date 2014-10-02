@@ -18,7 +18,7 @@ function printful_shipping_add($methods)
     return $methods;
 }
 
-function printfulaaa_shipping_init()
+function printful_shipping_init()
 {
 
     if (!class_exists('WC_Shipping_Method') ) {
