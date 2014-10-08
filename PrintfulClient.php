@@ -15,7 +15,7 @@ class PrintfulClient {
 	private $lastResponse;
 
 	const API_URL = 'https://api.theprintful.com/';
-	const USER_AGENT = 'Printful API WooCommerce Library 1.0';
+	const USER_AGENT = 'Printful API WooCommerce Library 1.0.1';
 
 	/**
 	 * @param string $key Printful Store API key
