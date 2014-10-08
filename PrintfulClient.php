@@ -134,8 +134,6 @@ class PrintfulClient {
 		curl_setopt($curl, CURLOPT_USERPWD, $this->key);
 		curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-		curl_setopt($curl, CURLOPT_MAXREDIRS, 3);
 
 		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 20);
 		curl_setopt($curl, CURLOPT_TIMEOUT, 20);

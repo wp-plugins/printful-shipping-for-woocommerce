@@ -3,7 +3,7 @@
  Plugin Name: Printful Shipping Rates for WooCommerce
  Plugin URI: https://wordpress.org/plugins/printful-shipping-for-woocommerce/
  Description: Printful shipping rates
- Version: 1.0
+ Version: 1.0.1
  Author: Idea Bits LLC
  License: GPL2 http://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -27,8 +27,9 @@ function printful_shipping_init()
 
     class Printful_Shipping extends WC_Shipping_Method
     {
-        public $currencyRate = 1;
-
+        public $currency_rate = 1;
+        public $show_warnings = false;
+        private $last_error = false;
 
         function __construct()
         {
@@ -43,11 +44,12 @@ function printful_shipping_init()
 
             $this->enabled = $this->get_option('enabled');
             $this->title = $this->get_option('title');
+            $this->show_warnings = $this->get_option('show_warnings') == 'yes';
 
             if (get_woocommerce_currency() != 'USD') {
-                $currencyRate = (float)$this->get_option('rate');
-                if($currencyRate>0) {
-                    $this->currencyRate = $currencyRate;
+                $currency_rate = (float)$this->get_option('rate');
+                if ($currency_rate>0) {
+                    $this->currency_rate = $currency_rate;
                 }
             }
             $this->type = 'order';
@@ -75,6 +77,12 @@ function printful_shipping_init()
                     'desc_tip' => true,
                     'description'=> 'Your store\'s Printful API key. Create it in the Prinful dashboard',
                     'default' => '',
+                ),
+                'show_warnings' => array(
+                    'title'			=> 'Show Printful warnings',
+                    'type'			=> 'checkbox',
+                    'label'			=> 'Display Printful status messages if rate API request fails',
+                    'default'		=> 'yes'
                 ),
             );
             $currency = get_woocommerce_currency();
@@ -118,7 +126,7 @@ function printful_shipping_init()
             try {
                 $printful = new PrintfulClient($this->get_option('printful_key'));
             } catch( PrintfulException $e) {
-                wc_add_notice( $e->getMessage(), 'error' );
+                $this->set_error($e);
                 return false;
             }
 
@@ -131,18 +139,34 @@ function printful_shipping_init()
                     $rateData = array(
                         'id' => $this->id . '_' . $rate['id'],
                         'label' => $rate['name'],
-                        'cost' => round($rate['rate'] / $this->currencyRate, 2),
+                        'cost' => round($rate['rate'] / $this->currency_rate, 2),
                         'taxes' => '',
                         'calc_tax' => 'per_order'
                     );
                     $this->add_rate($rateData);
                 }
             } catch ( PrintfulException $e) {
-                if (WP_DEBUG) {
-                    wc_add_notice( $e->getMessage(), 'error' );
-                }
+                $this->set_error($e);
                 return false;
             }
+        }
+
+        private function set_error($error)
+        {
+            if ($this->show_warnings){
+                $this->last_error = $error;
+                add_filter('woocommerce_cart_no_shipping_available_html', array($this, 'show_error'));
+                add_filter('woocommerce_no_shipping_available_html', array($this, 'show_error'));
+            }
+        }
+        public function show_error($data)
+        {
+            $error = $this->last_error;
+            $message = $error->getMessage();
+            if($error instanceof PrintfulApiException && $error->getCode() == 401){
+                $message = 'Invalid API key';
+            }
+            return '<p>'.$this->title.': '.htmlspecialchars($message).'</p>';
         }
     }
 }

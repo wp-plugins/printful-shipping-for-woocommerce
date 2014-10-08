@@ -3,7 +3,7 @@ Contributors: girts_u
 Tags: woocommerce, printful, shipping, shipping rates, fulfillment, printing, fedex, carriers, checkout
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,9 +38,17 @@ Go to https://www.theprintful.com/dashboard/store , select your WooCommerce stor
 == Upgrade Notice ==
 
 = 1.0 =
-* First release
+First release
+
+= 1.0.1 =
+Minor improvements
 
 == Changelog ==
 
 = 1.0 =
 * First release
+
+= 1.0.1 =
+* Removed CURLOPT_FOLLOWLOCATION that caused problems on some hosting environments
+* Added option to display reason status messages if the rate API request has failed
+
