@@ -14,8 +14,10 @@ class PrintfulClient {
 	private $lastResponseRaw;
 	private $lastResponse;
 
+    public $disableSSL = false;
+
 	const API_URL = 'https://api.theprintful.com/';
-	const USER_AGENT = 'Printful API WooCommerce Library 1.0.1';
+	const USER_AGENT = 'Printful API WooCommerce Library 1.0.2';
 
 	/**
 	 * @param string $key Printful Store API key
@@ -125,7 +127,7 @@ class PrintfulClient {
 
         $version = curl_version();
         $baseUrl = self::API_URL;
-        if(!($version['features'] & CURL_VERSION_SSL)){ //Fallback to HTTP
+        if($this->disableSSL || !($version['features'] & CURL_VERSION_SSL)){ //Fallback to HTTP
             $baseUrl = str_replace('https://', 'http://', $baseUrl);
         }
 

@@ -3,7 +3,7 @@
  Plugin Name: Printful Shipping Rates for WooCommerce
  Plugin URI: https://wordpress.org/plugins/printful-shipping-for-woocommerce/
  Description: Printful shipping rates
- Version: 1.0.1
+ Version: 1.0.2
  Author: Idea Bits LLC
  License: GPL2 http://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -29,6 +29,7 @@ function printful_shipping_init()
     {
         public $currency_rate = 1;
         public $show_warnings = false;
+        public $disable_ssl = false;
         private $last_error = false;
 
         function __construct()
@@ -45,6 +46,7 @@ function printful_shipping_init()
             $this->enabled = $this->get_option('enabled');
             $this->title = $this->get_option('title');
             $this->show_warnings = $this->get_option('show_warnings') == 'yes';
+            $this->disable_ssl = $this->get_option('disable_ssl') == 'yes';
 
             if (get_woocommerce_currency() != 'USD') {
                 $currency_rate = (float)$this->get_option('rate');
@@ -83,6 +85,12 @@ function printful_shipping_init()
                     'type'			=> 'checkbox',
                     'label'			=> 'Display Printful status messages if rate API request fails',
                     'default'		=> 'yes'
+                ),
+                'disable_ssl' => array(
+                    'title'			=> 'Disable SSL',
+                    'type'			=> 'checkbox',
+                    'label'			=> 'Use HTTP instead of HTTPS to connect to the Printful API (may be required if the plugin does not work for some hosting configurations)',
+                    'default'		=> 'no'
                 ),
             );
             $currency = get_woocommerce_currency();
@@ -125,6 +133,7 @@ function printful_shipping_init()
 
             try {
                 $printful = new PrintfulClient($this->get_option('printful_key'));
+                $printful->disableSSL = $this->disable_ssl;
             } catch( PrintfulException $e) {
                 $this->set_error($e);
                 return false;
