@@ -25,6 +25,19 @@ class Printful_Integration extends WC_Integration
 
         if ($this->get_option('calculate_tax') == 'yes')
         {
+            //Update tax options if taxes are enabled
+            if (get_option('woocommerce_calc_taxes') != 'yes')
+            {
+                update_option('woocommerce_calc_taxes', 'yes');
+            }
+            if (get_option('woocommerce_tax_based_on') != 'shipping')
+            {
+                update_option('woocommerce_tax_based_on', 'shipping');
+            }
+
+            //Show warning in the tax settings section
+            add_action('woocommerce_settings_tax_options', array($this, 'show_tax_warning'));
+
             //Override tax rates calculated by Woocommerce
             add_filter('woocommerce_matched_tax_rates', array($this, 'calculate_tax'), 10, 6);
         }
@@ -212,6 +225,18 @@ class Printful_Integration extends WC_Integration
             $id = $wpdb->insert_id;
         }
         return $id;
+    }
+
+    public function show_tax_warning(){
+        ?>
+        <div class="error below-h2">
+            <p>
+                Warning: Tax rates are overriden by Printful Integration plugin. Go to
+                <a href="<?php echo admin_url('admin.php?page=wc-settings&tab=integration&section=printful') ?>">Printful Integration settings</a>
+                to disable automatic tax calculation if you want to use your own settings.
+            </p>
+        </div>
+        <?php
     }
 
 }
