@@ -1,13 +1,13 @@
-=== Printful live shipping rates for WooCommerce ===
+=== Printful Integration for WooCommerce ===
 Contributors: girts_u
 Tags: woocommerce, printful, shipping, shipping rates, fulfillment, printing, fedex, carriers, checkout
 Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 1.0.2
+Tested up to: 4.1
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Calculate live shipping rates based on actual Printful shipping costs
+Calculate live shipping rates and tax rates based on actual Printful shipping costs
 
 == Description ==
 
@@ -21,7 +21,8 @@ Display actual live shipping rates from carriers like FedEx on your WooCommerce 
 == Installation ==
 1. Upload 'printful-shipping' to the '/wp-content/plugins/' directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Enable rate calculation by adding your Printful API key to WooCommerce->Settings->Shipping->Printful Shipping tab
+1. Add your Printful API key to WooCommerce->Settings->Integration->Printful Integration tab
+1. Enable shipping rate calculation in WooCommerce->Settings->Shipping->Printful Shipping tab
 
 == Frequently Asked Questions ==
 
@@ -32,10 +33,14 @@ Go to https://www.theprintful.com/dashboard/store , select your WooCommerce stor
 
 == Screenshots ==
 
-1. Settings dialog
-2. Shipping rate selection
+1. Plugin settings dialog
+2. Shipping rate dialog
+3. Shipping rate selection
 
 == Upgrade Notice ==
+
+= 1.1 =
+Added tax rate calculation
 
 = 1.0.2 =
 Added option to disable SSL
@@ -47,6 +52,12 @@ Minor improvements
 First release
 
 == Changelog ==
+
+= 1.1 =
+* Added option to calculate sales tax rates for locations where it is required for Printful orders
+* Added automatic conversion of shipping rates to the currency used by Woocommerce
+* Printful API client library updated to use Wordpress internal wp_remote_get method instead of CURL directly
+* Changed plugin code structure for easier implementation of new features in the future
 
 = 1.0.2 =
 * Added option to disable SSL for users that do not have a valid CA certificates in their PHP installation
