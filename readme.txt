@@ -1,6 +1,6 @@
 === Printful Integration for WooCommerce ===
 Contributors: girts_u
-Tags: woocommerce, printful, shipping, shipping rates, fulfillment, printing, fedex, carriers, checkout
+Tags: woocommerce, printful, drop shipping, shipping, shipping rates, fulfillment, printing, fedex, carriers, checkout, t-shirts
 Requires at least: 3.8
 Tested up to: 4.1
 Stable tag: 1.1
@@ -13,6 +13,8 @@ Calculate live shipping rates and tax rates based on actual Printful shipping co
 
 Display actual live shipping rates from carriers like FedEx on your WooCommerce checkout page. This plugin will return a list of available shipping rates specific to the shipping address your customer provides when checking out. These rates are identical to the list you get when you submit an order manually via Printful dashboard.
 
+This plugin will also automatically calculate taxes where it is required for Printful so that your originally intended profit margin stays intact.
+
 = Known Limitations =
 
 * Works with WooCommmerce 2.1 and up
@@ -21,15 +23,16 @@ Display actual live shipping rates from carriers like FedEx on your WooCommerce 
 == Installation ==
 1. Upload 'printful-shipping' to the '/wp-content/plugins/' directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Add your Printful API key to WooCommerce->Settings->Integration->Printful Integration tab
+1. Add your Printful API key to WooCommerce->Settings->Integration->Integration tab
 1. Enable shipping rate calculation in WooCommerce->Settings->Shipping->Printful Shipping tab
+1. To automatically calculate taxes please check 'Enable taxes and tax calculations' under WooCommerce Tax settings.
+1. Then go to 'Integration' tab and check 'Calculate sales tax for locations where it is required for Printful orders'.
 
 == Frequently Asked Questions ==
 
 = How do I get Printful API key? =
 
-Go to https://www.theprintful.com/dashboard/store , select your WooCommerce store, click "Edit" and then click
-"Enable API Access". Your API key will be generated and displayed there.
+Go to https://www.theprintful.com/dashboard/store , select your WooCommerce store, click "Edit" and then click "Enable API Access". Your API key will be generated and displayed there.
 
 == Screenshots ==
 
