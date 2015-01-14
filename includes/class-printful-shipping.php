@@ -36,7 +36,7 @@ class Printful_Shipping extends WC_Shipping_Method
                             <a href="<?php echo admin_url('admin.php?page=wc-settings&tab=integration&section=printful') ?>">Printful Integration settings section</a>
                             to enable rate calculation.
                         </p>
-                       </div>
+                        </div>
                 </td></tr>
             <?php
         }
