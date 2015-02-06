@@ -78,10 +78,17 @@ class Printful_Shipping extends WC_Shipping_Method
         );
 
         foreach ($package['contents'] as $item) {
+            if (!empty($item['data']) && ($item['data']->is_virtual() || $item['data']->is_downloadable())) {
+                continue;
+            }
             $request['items'] []= array(
                 'external_variant_id' => $item['variation_id'] ? $item['variation_id'] : $item['product_id'],
                 'quantity' => $item['quantity']
             );
+        }
+
+        if (!$request['items']) {
+            return false;
         }
 
         try {
