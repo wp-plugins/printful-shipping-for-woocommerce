@@ -3,7 +3,7 @@ Contributors: girts_u
 Tags: woocommerce, printful, drop shipping, shipping, shipping rates, fulfillment, printing, fedex, carriers, checkout, t-shirts
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,9 @@ Go to https://www.theprintful.com/dashboard/store , select your WooCommerce stor
 
 == Upgrade Notice ==
 
+= 1.1.2 =
+Removed check for Curl extension
+
 = 1.1.1 =
 Ignore virtual and downloadable products when calculating shipping rates
 
@@ -58,6 +61,9 @@ Minor improvements
 First release
 
 == Changelog ==
+
+= 1.1.2 =
+* Removed check for Curl extension (since we already used wp_remote_get and it is no longer necessary)
 
 = 1.1.1 =
 * Ignore virtual and downloadable products when calculating shipping rates

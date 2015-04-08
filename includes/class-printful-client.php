@@ -23,9 +23,6 @@ class Printful_Client {
         if(!function_exists('json_decode') || !function_exists('json_encode')){
             throw new PrintfulException('PHP JSON extension is required for the Printful API library to work!');
         }
-        if(!function_exists('curl_init') ){
-            throw new PrintfulException('PHP CURL extension is required for the Printful API library to work!');
-        }
         if(strlen($key) < 32){
             throw new PrintfulException('Missing or invalid Printful store key!');
         }
